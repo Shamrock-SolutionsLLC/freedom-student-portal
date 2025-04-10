@@ -1,6 +1,4 @@
-
-
-function ProfileStepForm() {
+function ProfileStepForm({ onNext }) {
 
   const educationLevels = [
     "Select",
@@ -11,6 +9,11 @@ function ProfileStepForm() {
     "Bachelor's Degree",
     "Master's Degree or Higher",
   ];
+
+  const handleNextClick = () => {
+    const formData = { };
+    onNext(formData);
+  };
 
   return (
     <div className="bg-white p-6 sm:p-8 rounded-lg shadow-md border border-gray-200">
@@ -166,6 +169,7 @@ function ProfileStepForm() {
           <button
             type="button" 
             className="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-6 rounded-md transition duration-200"
+            onClick={handleNextClick}
           >
             NEXT
           </button>
