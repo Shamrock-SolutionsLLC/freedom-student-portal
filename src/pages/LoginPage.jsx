@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import shamrockIcon from '../assets/shamrock_icon_color.png';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -12,7 +14,7 @@ function LoginPage() {
     const correctPassword = import.meta.env.VITE_PASSWORD;
 
     if (username === correctUsername && password === correctPassword) {
-      alert('Login Successful!');
+      navigate('/');
     } else {
       alert('Invalid username or password.');
     }
