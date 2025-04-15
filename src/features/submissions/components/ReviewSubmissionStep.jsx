@@ -39,7 +39,7 @@ export default function ReviewSubmissionStep({ onNext, onBack }) {
         <ReviewSubmissionTable />
         <div className="flex justify-between pt-6">
           <button type="button" className="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-md transition duration-200" onClick={onBack}>&lt;-- BACK</button>
-          <button type="button" className="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-6 rounded-md transition duration-200" onClick={onNext}>NEXT --&gt;</button>
+          <button type="button" className="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-6 rounded-md transition duration-200" onClick={onNext}>SUBMIT</button>
         </div>
       </CardContent>
     </Card>
