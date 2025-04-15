@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import AppLayout from '../components/layout/AppLayout';
-import ProfileStepForm from '../features/submissions/components/ProfileStepForm';
-import AddCourseworkStep from '../features/submissions/components/AddCourseworkStep';
+import AppLayout from '@/components/layout/AppLayout';
+import ProfileStepForm from '@/features/submissions/components/ProfileStepForm';
+import AddCourseworkStep from '@/features/submissions/components/AddCourseworkStep';
+import ReviewSubmissionStep from '@/features/submissions/components/ReviewSubmissionStep';
 
 function NewSubmissionPage() {
   const [currentStep, setCurrentStep] = useState(1);
@@ -18,14 +19,21 @@ function NewSubmissionPage() {
   return (
     <AppLayout>
       {currentStep === 1 && (
-        <ProfileStepForm 
+        <ProfileStepForm
           onNext={handleNext}
         />
       )}
-      
+
       {currentStep === 2 && (
-        <AddCourseworkStep 
-          onNext={handleNext} 
+        <AddCourseworkStep
+          onNext={handleNext}
+          onBack={handleBack}
+        />
+      )}
+
+      {currentStep === 3 && (
+        <ReviewSubmissionStep
+          onNext={handleNext}
           onBack={handleBack}
         />
       )}
