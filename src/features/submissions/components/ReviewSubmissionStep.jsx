@@ -2,6 +2,7 @@ import { CiCircleCheck } from "react-icons/ci";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import ReviewSubmissionDropdown from "./ReviewSubmissionDropdown";
 import { ReviewSubmissionTable } from "./ReviewSubmissionTable";
+import SubmissionFooter from "./SubmissionFooter";
 
 export default function ReviewSubmissionStep({ onNext, onBack }) {
   return <>
@@ -35,13 +36,15 @@ export default function ReviewSubmissionStep({ onNext, onBack }) {
           <ReviewSubmissionDropdown />
         </div>
       </CardHeader>
-      <CardContent className='px-9'>
+      <CardContent className='px-9 pb-9'>
         <ReviewSubmissionTable />
-        <div className="flex justify-between pt-6">
-          <button type="button" className="bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-md transition duration-200" onClick={onBack}>&lt;-- BACK</button>
-          <button type="button" className="bg-gray-800 hover:bg-gray-700 text-white font-semibold py-2 px-6 rounded-md transition duration-200" onClick={onNext}>SUBMIT</button>
-        </div>
       </CardContent>
     </Card>
+    <SubmissionFooter>
+      <div className="flex justify-between py-2">
+        <button type="button" className="bg-[#979ea8] cursor-pointer hover:bg-gray-600 text-white font-semibold py-2 px-10 rounded-xl transition duration-200" onClick={onBack}>&lt;-- BACK</button>
+        <button type="button" className="bg-[#979ea8] cursor-pointer hover:bg-gray-700 text-white font-semibold py-2 px-10 rounded-xl transition duration-200" onClick={onNext}>SUBMIT</button>
+      </div>
+    </SubmissionFooter>
   </>
 }
