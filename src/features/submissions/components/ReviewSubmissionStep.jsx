@@ -1,5 +1,6 @@
 import { CiCircleCheck } from "react-icons/ci";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 import ReviewSubmissionDropdown from "./ReviewSubmissionDropdown";
 import { ReviewSubmissionTable } from "./ReviewSubmissionTable";
 import SubmissionFooter from "./SubmissionFooter";
@@ -27,7 +28,7 @@ export default function ReviewSubmissionStep({ onNext, onBack }) {
       </CardContent>
     </Card>
     <Card className='mt-9'>
-      <CardHeader className='py-1 pl-2.5'>
+      <CardHeader className='pl-2.5'>
         <h3 className="flex gap-x-3 items-center italic">
           <span className="flex w-11 h-11 text-lg border border-black rounded-md justify-center items-center not-italic">10</span>
           Estimated Transfer Credits
@@ -42,8 +43,8 @@ export default function ReviewSubmissionStep({ onNext, onBack }) {
     </Card>
     <SubmissionFooter>
       <div className="flex justify-between py-2">
-        <button type="button" className="bg-[#979ea8] cursor-pointer hover:bg-gray-600 text-white font-semibold py-2 px-10 rounded-xl transition duration-200" onClick={onBack}>&lt;-- BACK</button>
-        <button type="button" className="bg-[#979ea8] cursor-pointer hover:bg-gray-700 text-white font-semibold py-2 px-10 rounded-xl transition duration-200" onClick={onNext}>SUBMIT</button>
+        <Button onClick={onBack}>&lt;-- BACK</Button>
+        <Button onClick={onNext}>SUBMIT</Button>
       </div>
     </SubmissionFooter>
   </>
