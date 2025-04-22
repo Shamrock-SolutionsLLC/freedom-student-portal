@@ -36,7 +36,7 @@ export const SubmissionResultTable = () => {
             <TableHead scope="col">
               Course
             </TableHead>
-            <TableHead scope="col">
+            <TableHead scope="col" className='!text-center'>
               Date
             </TableHead>
             <TableHead scope="col" className='!text-center'>
