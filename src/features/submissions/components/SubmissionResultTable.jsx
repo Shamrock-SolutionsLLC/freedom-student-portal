@@ -1,3 +1,5 @@
+import { useMemo, useState } from "react";
+import { createColumnHelper, useReactTable, flexRender, getCoreRowModel } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/Table";
 
 const placeholderCourses = [
@@ -8,6 +10,8 @@ const placeholderCourses = [
   { id: '5', schoolName: 'HENDRIX COLLEGE', course: "BIOL 101", date: '05-2022', credits: 4.0, grade: 'C', courseId: 'BIO 100\nBIO100L', courseTitle: 'HORIZONS IN BIOLOGY\nHORIZONS LAB', courseCredits: '3.0\n1.0', status: 'APPROVED' },
   { id: '6', schoolName: 'HENDRIX COLLEGE', course: "BIOL 101", date: '05-2022', credits: 4.0, grade: 'C', courseId: 'BIO 100\nBIO100L', courseTitle: 'HORIZONS IN BIOLOGY\nHORIZONS LAB', courseCredits: '3.0\n1.0', status: 'APPROVED' },
 ];
+
+const fallbackData = []
 
 const statusMapping = {
   APPROVED: {
@@ -23,66 +27,129 @@ const statusMapping = {
   }
 }
 
+const columnHelper = createColumnHelper()
+
 export const SubmissionResultTable = () => {
+  const columns = useMemo(() => [
+    columnHelper.accessor('schoolName', {
+      header: 'School name',
+      cell: ({ cell, row }) => <>
+        <strong className="block -indent-7">{row.original.status}</strong>
+        {cell.getValue()}</>,
+      meta: {
+        headerClassName: 'pl-0',
+        bodyClassName: 'pl-0 relative',
+      }
+    }),
+    columnHelper.accessor('course', {
+      header: 'Course',
+      cell: info => info.getValue(),
+    }),
+    columnHelper.accessor('date', {
+      header: 'Date',
+      cell: info => info.getValue(),
+      meta: {
+        headerClassName: '!text-center',
+        bodyClassName: 'text-center',
+      }
+    }),
+    columnHelper.accessor('credits', {
+      header: 'Credits',
+      cell: info => info.getValue(),
+      meta: {
+        headerClassName: '!text-center',
+        bodyClassName: 'text-center',
+      }
+    }),
+    columnHelper.accessor('grade', {
+      header: 'Grade',
+      cell: info => info.getValue(),
+      meta: {
+        headerClassName: '!text-center',
+        bodyClassName: 'text-center',
+      }
+    }),
+    columnHelper.accessor('courseId', {
+      header: 'Course id',
+      cell: info => info.getValue(),
+      meta: {
+        bodyClassName: '!whitespace-pre font-semibold',
+      }
+    }),
+    columnHelper.accessor('courseTitle', {
+      header: 'Course title',
+      cell: info => info.getValue(),
+      meta: {
+        bodyClassName: '!whitespace-pre font-semibold',
+      }
+    }),
+    columnHelper.accessor('courseCredits', {
+      header: 'Course credits',
+      cell: info => info.getValue(),
+      meta: {
+        headerClassName: '!text-center',
+        bodyClassName: '!whitespace-pre font-semibold text-center',
+      }
+    }),
+  ], []);
+
+  const [data, setData] = useState(placeholderCourses);
+
+  const table = useReactTable({
+    columns,
+    data: data ?? fallbackData,
+    getCoreRowModel: getCoreRowModel(),
+  });
+
   return (
     <div className='relative'>
       <div className="w-full h-7 absolute bg-white top-0 -left-6 z-[1]"></div>
       <Table wrapperClassName='!w-auto max-h-[300px] overflow-x-hidden -mx-6 pr-6' className='ml-8'>
         <TableHeader className='[&_tr]:border-none [&_th]:sticky [&_th]:top-0 [&_th]:bg-white [&_th]:z-[1] [&_th]:shadow-[inset_0_-1px_0_#ddd]'>
-          <TableRow>
-            <TableHead scope="col" className='pl-0'>
-              School name
-            </TableHead>
-            <TableHead scope="col">
-              Course
-            </TableHead>
-            <TableHead scope="col" className='!text-center'>
-              Date
-            </TableHead>
-            <TableHead scope="col" className='!text-center'>
-              Credits
-            </TableHead>
-            <TableHead scope="col" className='!text-center'>
-              Grade
-            </TableHead>
-            <TableHead scope="col">
-              Course id
-            </TableHead>
-            <TableHead scope="col">
-              Course title
-            </TableHead>
-            <TableHead scope="col">
-              Course credits
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {placeholderCourses.map((course) => {
-            return <TableRow className='border-b border-solid border-gray-200 [&_td]:pt-4 [&_td]:pb-6' key={course.id}>
-              <TableCell className='pl-0 relative'>
-                <strong className="block -indent-7">{statusMapping[course.status].tagName}</strong>
-                {course.schoolName}
-              </TableCell>
-              <TableCell>{course.course}</TableCell>
-              <TableCell className='text-center'>{course.date}</TableCell>
-              <TableCell className='text-center'>{course.credits.toFixed(1)}</TableCell>
-              <TableCell className='text-center'>{course.grade}</TableCell>
+          {table.getHeaderGroups().map(headerGroup => (
+            <TableRow key={headerGroup.id}>
               {
-                course.status === 'APPROVED' ? (
-                  <>
-                    <TableCell className='whitespace-pre font-semibold'>{course.courseId}</TableCell>
-                    <TableCell className='!whitespace-pre font-semibold'>{course.courseTitle}</TableCell>
-                    <TableCell className='!whitespace-pre font-semibold text-center'>{course.courseCredits}</TableCell>
-                  </>
-                )
-                  : <TableCell colSpan='3'>
-                    {
-                      statusMapping[course.status].information
-                    }
-                  </TableCell>
+                headerGroup.headers.map(header => (
+                  <TableHead key={header.id} scope="col" className={header.column.columnDef.meta?.headerClassName}>
+                    {flexRender(header.column.columnDef.header, header.getContext())}
+                  </TableHead>
+                ))
               }
             </TableRow>
-          })}
+          ))}
+        </TableHeader>
+        <TableBody>
+          {table.getRowModel().rows.map((row, index) => placeholderCourses[index].status === 'APPROVED' ? (
+            <TableRow key={row.id} className='border-b border-solid border-gray-200 [&_td]:pt-4 [&_td]:pb-6'>
+              {row.getVisibleCells().map(cell => (
+                <TableCell key={cell.id} className={cell.column.columnDef.meta?.bodyClassName}>
+                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                </TableCell>
+              )
+              )}
+            </TableRow>
+          ) : (
+            <TableRow key={row.id} className='border-b border-solid border-gray-200 [&_td]:pt-4 [&_td]:pb-6'>
+              {row.getVisibleCells().map(cell => {
+                if (cell.column.id === 'courseId') {
+                  return <TableCell colSpan='3' key={cell.id}>
+                    {
+                      statusMapping[placeholderCourses[index].status].information
+                    }
+                  </TableCell>
+                }
+                if (cell.column.id !== 'courseTitle' && cell.column.id !== 'courseCredits') {
+                  return (
+                    <TableCell key={cell.id} className={cell.column.columnDef.meta?.bodyClassName}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </TableCell>
+                  )
+                }
+              }
+              )}
+            </TableRow>
+          )
+          )}
         </TableBody>
       </Table>
     </div>);
