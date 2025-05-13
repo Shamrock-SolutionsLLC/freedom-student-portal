@@ -67,17 +67,17 @@ export const ReviewSubmissionTable = () => {
   return (
     <Table >
       <TableHeader>
-      {table.getHeaderGroups().map(headerGroup => (
-            <TableRow key={headerGroup.id}>
-              {
-                headerGroup.headers.map(header => (
-                  <TableHead key={header.id} scope="col" className={header.column.columnDef.meta?.headerClassName}>
-                    {flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                ))
-              }
-            </TableRow>
-          ))}
+        {table.getHeaderGroups().map(headerGroup => (
+          <TableRow key={headerGroup.id}>
+            {
+              headerGroup.headers.map(header => (
+                <TableHead key={header.id} scope="col" className={header.column.columnDef.meta?.headerClassName}>
+                  {flexRender(header.column.columnDef.header, header.getContext())}
+                </TableHead>
+              ))
+            }
+          </TableRow>
+        ))}
       </TableHeader>
       <TableBody>
         {table.getRowModel().rows.map((row, index) =>

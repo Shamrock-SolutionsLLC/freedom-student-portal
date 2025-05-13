@@ -53,7 +53,8 @@ export default function SubmissionResultStep({ onNext, onBack }) {
     <SubmissionFooter>
       <div className="flex justify-between items-center py-2">
         <Button onClick={onBack}>&lt;-- BACK</Button>
-        <a href='#' className="text-sm italic">DOWNLOAD REPORT</a>
+        <a href='#' className="text-sm italic underline text-blue-900">DOWNLOAD REPORT</a>
+        <a href='#' className="text-sm italic underline text-blue-900">SUBMIT APPLICATION</a>
         <Button onClick={onNext}>MY SUBMISSION</Button>
       </div>
     </SubmissionFooter>
