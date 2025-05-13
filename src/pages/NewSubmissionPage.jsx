@@ -49,10 +49,7 @@ function NewSubmissionPage() {
 
       {
         currentStep === 5 && (
-          <SubmissionFormStep
-            onNext={handleNext}
-            onBack={handleBack}
-          />
+          <SubmissionFormStep />
         )
       }
     </AppLayout>
